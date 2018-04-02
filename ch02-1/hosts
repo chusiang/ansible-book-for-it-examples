@@ -1,0 +1,18 @@
+# ansible_ssh_host: 遠端 SSH 主機位址。
+# ansible_ssh_port: 遠端 SSH 埠口（Port）。
+# ansible_ssh_user: 遠端 SSH 使用者名稱。
+# ansible_ssh_private_key_file: 本機 SSH 私鑰檔路徑。
+# ansible_ssh_pass: 遠端 SSH 密碼，建議使用 SSH 私鑰。
+
+[dev]
+server1 ansible_ssh_host=192.168.10.11  ansible_ssh_pass=vagrant
+
+[prod]
+server2 ansible_ssh_host=192.168.10.12  ansible_ssh_pass=vagrant
+
+# Groups of Groups.
+[centos:children]
+dev
+prod
+
+# vi: set ft=cfg :

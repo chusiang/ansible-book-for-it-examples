@@ -5,18 +5,53 @@ services:
 
 before_install:
   - docker version
+  - ls
 
-  - echo "==> Get docker images ..."
-  - docker run --rm -it chusiang/ansible:2.4 ansible --version
+jobs:
+  include:
 
-  - echo "==> List files ..."
-  - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "ls /srv"
+    # Ch02
+    ######
 
-script:
-  - echo "==> Run Test case on Ansible 2.4 ..."
+    - stage: Ch02
+      script:
 
-  # ch02
-  - echo "==> [ch02] Check syntax ..."
-  - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd ch02 && ansible-playbook --syntax-check *.yml"
-  - echo "==> [ch02] Run ..."
-  - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd ch02 && ansible-playbook *.yml"
+        # Ansible v2.4.
+        - echo "==> [v2.4] Show version ..."
+        - docker run --rm -it chusiang/ansible:2.4 ansible --version
+
+        - echo "==> [v2.4] Check syntax ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd ch02 && ansible-playbook --syntax-check *.yml"
+
+        - echo "==> [v2.4] Run ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd ch02 && ansible-playbook *.yml"
+
+    - stage: Ch02
+      script:
+
+        # Ansible v2.5.
+        - echo "==> [v2.5] Show version ..."
+        - docker run --rm -it chusiang/ansible:2.5 ansible --version
+
+        - echo "==> [v2.5] Check syntax ..."
+        - docker run --rm -it chusiang/ansible:2.5 ansible --version
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd ch02 && ansible-playbook --syntax-check *.yml"
+
+        - echo "==> [v2.5] Run ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd ch02 && ansible-playbook *.yml"
+
+    # Ch02-1
+    ########
+
+    - stage: Ch02-1
+      script:
+
+        - echo "TBD"
+
+    # Ch02-2-1
+    ##########
+
+    - stage: Ch02-2-1
+      script:
+
+        - echo "TBD"
