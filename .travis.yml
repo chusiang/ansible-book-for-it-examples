@@ -1,18 +1,14 @@
 language: bash
-sudo: true
+sudo: required
 services:
   - docker
 
 before_install:
-  - docker info
   - docker version
 
-  - echo "==> Run dind ..."
-  - docker run --privileged --name ci -v $PWD:/srv -d docker:18.03-dind
+  - echo "==> Get docker images ..."
+  - docker pull chusiang/ansible:2.4
 
 script:
   - echo "==> Run Test case on Ansible 2.4 ..."
-  - docker run --rm -it -v /srv:/srv chusiang/ansible:2.4 bash
-  - ls /srv
-  - ansible --version
-
+  - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "ansible --version && ls /srv"
