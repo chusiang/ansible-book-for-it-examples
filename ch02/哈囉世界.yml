@@ -5,7 +5,7 @@
   tasks:
 
     - name: 印出「哈囉世界」
-      command: echo 'hello world'
+      command: echo '哈囉世界'
       register: result
 
     - name: 印出標準輸出訊息
