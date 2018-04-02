@@ -1,0 +1,18 @@
+language: bash
+sudo: true
+services:
+  - docker
+
+before_install:
+  - docker info
+  - docker version
+
+  - echo "==> Run dind ..."
+  - docker run --privileged --name ci -v $PWD:/srv -d docker:18.03-dind
+
+script:
+  - echo "==> Run Test case on Ansible 2.4 ..."
+  - docker run --rm -it -v /srv:/srv chusiang/ansible:2.4 bash
+  - ls /srv
+  - ansible --version
+
