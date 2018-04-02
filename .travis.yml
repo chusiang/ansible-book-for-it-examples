@@ -7,8 +7,16 @@ before_install:
   - docker version
 
   - echo "==> Get docker images ..."
-  - docker pull chusiang/ansible:2.4
+  - docker run --rm -it chusiang/ansible:2.4 ansible --version
+
+  - echo "==> List files ..."
+  - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "ls /srv"
 
 script:
   - echo "==> Run Test case on Ansible 2.4 ..."
-  - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "ansible --version && ls /srv"
+
+  # ch02
+  - echo "==> [ch02] Check syntax ..."
+  - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd ch02 && ansible-playbook --syntax-check *.yml"
+  - echo "==> [ch02] Run ..."
+  - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd ch02 && ansible-playbook *.yml"
