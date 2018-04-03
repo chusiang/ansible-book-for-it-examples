@@ -10,13 +10,12 @@ before_install:
 jobs:
   include:
 
-    # Ch02
-    ######
+    # ---- Ch02 ---------------------------------------------------------------
 
+    # Ansible v2.4
     - stage: Ch02
       script:
 
-        # Ansible v2.4.
         - echo "==> [v2.4] Show version ..."
         - docker run --rm -it chusiang/ansible:2.4 ansible --version
 
@@ -26,10 +25,10 @@ jobs:
         - echo "==> [v2.4] Run ..."
         - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd ch02 && ansible-playbook *.yml"
 
+    # Ansible v2.5
     - stage: Ch02
       script:
 
-        # Ansible v2.5.
         - echo "==> [v2.5] Show version ..."
         - docker run --rm -it chusiang/ansible:2.5 ansible --version
 
@@ -40,16 +39,14 @@ jobs:
         - echo "==> [v2.5] Run ..."
         - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd ch02 && ansible-playbook *.yml"
 
-    # Ch02-1
-    ########
+    # ---- Ch02-1 -------------------------------------------------------------
 
     - stage: Ch02-1
       script:
 
         - echo "TBD"
 
-    # Ch02-2-1
-    ##########
+    # ---- Ch02-2-1 -----------------------------------------------------------
 
     - stage: Ch02-2-1
       script:
