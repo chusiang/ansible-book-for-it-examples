@@ -1,0 +1,8 @@
+[ubuntu-16.04]
+default  ansible_ssh_host=127.0.0.1  ansible_ssh_port=2222
+
+# For Python 3 Support.
+[ubuntu-16.04:vars]
+ansible_python_interpreter=/usr/bin/python3
+
+# vi: set ft=cfg :
