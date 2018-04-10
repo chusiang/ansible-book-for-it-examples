@@ -10,7 +10,7 @@ before_install:
 jobs:
   include:
 
-    # ---- Ch02 ---------------------------------------------------------------
+    # ---- Ch02 : How to use the ansible ---------------------------------------
 
     # Ansible v2.4
     - stage: Ch02
@@ -39,7 +39,7 @@ jobs:
         - echo "==> [v2.5] Run ..."
         - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd ch02 && ansible-playbook *.yml"
 
-    # ---- Ch02-1 -------------------------------------------------------------
+    # ---- Ch02-1 : How to deploy the ansible ----------------------------------
 
     - stage: Ch02-1
       script:
@@ -59,7 +59,7 @@ jobs:
         - echo "==> [v2.5] Run ..."
         - docker run --rm -it chusiang/ansible:2.5 ansible all -m command -a 'echo Hello World'
 
-    # ---- Ch02-2-1 -----------------------------------------------------------
+    # ---- Ch02-2-1 : How to practive the ansible with vagrant -----------------
 
     - stage: Ch02-2-1
       script:
@@ -79,8 +79,7 @@ jobs:
         - echo "==> [v2.5] Run ..."
         - docker run --rm -it chusiang/ansible:2.5 ansible all -m ping
 
-
-    # ---- Ch02-2-2 -----------------------------------------------------------
+    # ---- Ch02-2-2 : How to practive the ansible with docker ------------------
 
     - stage: Ch02-2-2
       script:
@@ -100,7 +99,7 @@ jobs:
         - echo "==> [v2.5] Run ..."
         - docker run --rm -it chusiang/ansible:2.5 ansible all -m command -a 'echo Hello World on Docker.'
 
-    # ---- Ch02-2-3 -----------------------------------------------------------
+    # ---- Ch02-2-3 : How to practive the ansible with jupyter -----------------
 
     # control-machine with `chusiang/ansible-jupyter`.
     - stage: Ch02-2-3
@@ -130,7 +129,7 @@ jobs:
         - echo "==> Run the managed nodes ..."
         - docker run --name server1 -d -p 30001:22 chusiang/ansible-managed-node:ubuntu-16.04
 
-        - echo "==> Check the ssh service ..."
+        - echo "==> Check the ssh service on managed node ..."
         - nc -w 1 -n 127.0.0.1 30001
 
     # managed-node with `chusiang/ansible-managed-node:centos-7`.
@@ -143,5 +142,31 @@ jobs:
         - echo "==> Run the managed nodes ..."
         - docker run --name server2 -d -p 30002:22 chusiang/ansible-managed-node:centos-7
 
-        - echo "==> Check the ssh service ..."
+        - echo "==> Check the ssh service on managed node ..."
         - nc -w 1 -n 127.0.0.1 30002
+
+    # ---- Ch02-2-4 : How to practive the ansible with docker compose ----------
+
+    - stage: Ch02-2-4
+      script:
+
+        - echo "==> Install some necessity packages ..."
+        - sudo apt-get install -y curl netcat python-pip
+        - sudo pip install --upgrade pip
+        - sudo pip install docker-compose
+
+        - echo "==> Run some containers with docker-compose ..."
+        - /bin/sh -c "cd ch02-2-4 && docker-compose up -d"
+
+        - echo "==> Show version ..."
+        - docker exec -it ch0224_control_machine_1 python  --version
+        - docker exec -it ch0224_control_machine_1 ansible --version
+        - docker exec -it ch0224_control_machine_1 jupyter --version
+
+        - echo "==> Check the jupyter website ..."
+        - curl -I http://localhost:8888/
+
+        - echo "==> Check the ssh service on managed nodes ..."
+        - nc -w 1 -n 127.0.0.1 2221
+        - nc -w 1 -n 127.0.0.1 2222
+        - nc -w 1 -n 127.0.0.1 2223
