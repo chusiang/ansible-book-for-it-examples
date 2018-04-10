@@ -44,11 +44,104 @@ jobs:
     - stage: Ch02-1
       script:
 
-        - echo "TBD"
+        - echo "==> [v2.4] Show version ..."
+        - docker run --rm -it chusiang/ansible:2.4 ansible --version
+
+        - echo "==> [v2.4] Run ..."
+        - docker run --rm -it chusiang/ansible:2.4 ansible all -m command -a 'echo Hello World'
+
+    - stage: Ch02-1
+      script:
+
+        - echo "==> [v2.5] Show version ..."
+        - docker run --rm -it chusiang/ansible:2.5 ansible --version
+
+        - echo "==> [v2.5] Run ..."
+        - docker run --rm -it chusiang/ansible:2.5 ansible all -m command -a 'echo Hello World'
 
     # ---- Ch02-2-1 -----------------------------------------------------------
 
     - stage: Ch02-2-1
       script:
 
-        - echo "TBD"
+        - echo "==> [v2.4] Show version ..."
+        - docker run --rm -it chusiang/ansible:2.4 ansible --version
+
+        - echo "==> [v2.4] Run ..."
+        - docker run --rm -it chusiang/ansible:2.4 ansible all -m ping
+
+    - stage: Ch02-2-1
+      script:
+
+        - echo "==> [v2.5] Show version ..."
+        - docker run --rm -it chusiang/ansible:2.5 ansible --version
+
+        - echo "==> [v2.5] Run ..."
+        - docker run --rm -it chusiang/ansible:2.5 ansible all -m ping
+
+
+    # ---- Ch02-2-2 -----------------------------------------------------------
+
+    - stage: Ch02-2-2
+      script:
+
+        - echo "==> [v2.4] Show version ..."
+        - docker run --rm -it chusiang/ansible:2.4 ansible --version
+
+        - echo "==> [v2.4] Run ..."
+        - docker run --rm -it chusiang/ansible:2.4 ansible all -m command -a 'echo Hello World on Docker.'
+
+    - stage: Ch02-2-2
+      script:
+
+        - echo "==> [v2.5] Show version ..."
+        - docker run --rm -it chusiang/ansible:2.5 ansible --version
+
+        - echo "==> [v2.5] Run ..."
+        - docker run --rm -it chusiang/ansible:2.5 ansible all -m command -a 'echo Hello World on Docker.'
+
+    # ---- Ch02-2-3 -----------------------------------------------------------
+
+    # control-machine with `chusiang/ansible-jupyter`.
+    - stage: Ch02-2-3
+      script:
+
+        - echo "==> Install some necessity packages ..."
+        - sudo apt-get install -y curl
+
+        - echo "==> Run the ansible-jupyter ..."
+        - docker run --name control-machine -p 8888:8888 -d chusiang/ansible-jupyter:ubuntu-16.04
+
+        - echo "==> Show version ..."
+        - docker exec -it control-machine python  --version
+        - docker exec -it control-machine ansible --version
+        - docker exec -it control-machine jupyter --version
+
+        - echo "==> Check the jupyter website ..."
+        - curl -I http://localhost:8888/
+
+    # managed-node with `chusiang/ansible-managed-node:ubuntu-16.04`.
+    - stage: Ch02-2-3
+      script:
+
+        - echo "==> Install some necessity packages ..."
+        - sudo apt-get install -y netcat
+
+        - echo "==> Run the managed nodes ..."
+        - docker run --name server1 -d -p 30001:22 chusiang/ansible-managed-node:ubuntu-16.04
+
+        - echo "==> Check the ssh service ..."
+        - nc -w 1 -n 127.0.0.1 30001
+
+    # managed-node with `chusiang/ansible-managed-node:centos-7`.
+    - stage: Ch02-2-3
+      script:
+
+        - echo "==> Install some necessity packages ..."
+        - sudo apt-get install -y netcat
+
+        - echo "==> Run the managed nodes ..."
+        - docker run --name server2 -d -p 30002:22 chusiang/ansible-managed-node:centos-7
+
+        - echo "==> Check the ssh service ..."
+        - nc -w 1 -n 127.0.0.1 30002
