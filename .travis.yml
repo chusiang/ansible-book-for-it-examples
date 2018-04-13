@@ -23,7 +23,7 @@ jobs:
         - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd ch02 && ansible-playbook --syntax-check *.yml"
 
         - echo "==> [v2.4] Run ..."
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd ch02 && ansible-playbook *.yml"
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd ch02 && ansible-playbook *.yml" 
 
     # Ansible v2.5
     - stage: Ch02
@@ -159,9 +159,9 @@ jobs:
         - /bin/sh -c "cd ch02-2-4 && docker-compose up -d"
 
         - echo "==> Show version ..."
-        - docker exec -it ch0224_control_machine_1 python  --version
-        - docker exec -it ch0224_control_machine_1 ansible --version
-        - docker exec -it ch0224_control_machine_1 jupyter --version
+        - docker exec -it ch02-2-4_control_machine_1 python  --version
+        - docker exec -it ch02-2-4_control_machine_1 ansible --version
+        - docker exec -it ch02-2-4_control_machine_1 jupyter --version
 
         - echo "==> Check the jupyter website ..."
         - curl -I http://localhost:8888/
