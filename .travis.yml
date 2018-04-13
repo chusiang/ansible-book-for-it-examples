@@ -170,3 +170,17 @@ jobs:
         - nc -w 1 -n 127.0.0.1 2221
         - nc -w 1 -n 127.0.0.1 2222
         - nc -w 1 -n 127.0.0.1 2223
+
+    # ---- Ch02-3 : Which are the ansible developer tools ----------------------
+
+    - stage: Ch02-3
+      script:
+
+        - echo "==> Show version ..."
+        - docker run -it --rm chusiang/vim-and-vi-mode:debian9 vim --version
+
+        - echo "==> Install ..."
+        - docker run -it -v $PWD/ch02-3:/srv chusiang/vim-and-vi-mode:debian9 /bin/sh -c "cd /srv && make install" . | tee output.debian-9.log
+
+        - echo "==> Check ..."
+        - grep "==> Done." output.debian-9.log

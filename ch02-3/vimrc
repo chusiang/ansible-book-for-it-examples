@@ -1,0 +1,50 @@
+" dein Scripts
+" ------------
+
+if &compatible
+  set nocompatible                                            " Be iMproved
+endif
+
+" Required:
+set runtimepath+=$HOME/.vim/bundle/repos/github.com/Shougo/dein.vim
+
+" Required:
+if dein#load_state('$HOME/.vim/bundle')
+  call dein#begin('$HOME/.vim/bundle')
+
+  " Let dein manage dein
+  " Required:
+  call dein#add('$HOME/.vim/bundle/repos/github.com/Shougo/dein.vim')
+
+  " ==> Add or remove your plugins here <==
+  call dein#add('Glench/Vim-Jinja2-Syntax')
+  call dein#add('pearofducks/ansible-vim')
+  call dein#add('vim-syntastic/syntastic')
+
+  " Required:
+  call dein#end()
+  call dein#save_state()
+endif
+
+" Required:
+filetype plugin indent on
+syntax enable
+
+" If you want to install not installed plugins on startup.
+if dein#check_install()
+  call dein#install()
+endif
+
+" Syntastic
+" ---------
+
+let g:syntastic_enable_highlighting = 1
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
