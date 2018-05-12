@@ -23,7 +23,7 @@ jobs:
         - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd ch02 && ansible-playbook --syntax-check *.yml"
 
         - echo "==> [v2.4] Run ..."
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd ch02 && ansible-playbook *.yml" 
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd ch02 && ansible-playbook *.yml"
 
     # Ansible v2.5
     - stage: Ch02
@@ -184,6 +184,32 @@ jobs:
 
         - echo "==> Check ..."
         - grep "==> Done." output.debian-9.log
+
+    # ---- Ch03-3-3 : how to send notification to slack on ansible -------------
+
+    - stage: Ch03-3-3
+      script:
+
+        - echo "==> [v2.4] Show version ..."
+        - docker run --rm -it chusiang/ansible:2.4 ansible --version
+
+        - echo "==> [v2.4] Check syntax ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd ch03-3-3 && ansible-playbook --syntax-check *.yml"
+
+        - echo "==> [v2.4] Dry-run ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd ch03-3-3 && ansible-playbook --check *.yml"
+
+    - stage: Ch03-3-3
+      script:
+
+        - echo "==> [v2.5] Show version ..."
+        - docker run --rm -it chusiang/ansible:2.5 ansible --version
+
+        - echo "==> [v2.5] Check syntax ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd ch03-3-3 && ansible-playbook --syntax-check *.yml"
+
+        - echo "==> [v2.5] Dry-run ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd ch03-3-3 && ansible-playbook --check *.yml"
 
 notifications:
   slack:

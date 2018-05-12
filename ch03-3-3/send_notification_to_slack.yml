@@ -1,0 +1,21 @@
+---
+- name: Send notification to Slack
+  hosts: localhost
+
+  vars:
+    slack_domain:   "example.slack.com"
+    slack_token:    "CCCCCCCCCCCCCCCCCCCCCCCC"
+    slack_channel:  "@username"
+
+  post_tasks:
+    - name: send notification to slack
+      slack:
+        domain:     "{{ slack_domain }}"
+        token:      "{{ slack_token }}"
+        username:   "Ansible"
+        channel:    "{{ slack_channel }}"
+        color:      "normal"
+        msg:        "Send a notification with Ansible !"
+      delegate_to:  "localhost"
+
+# vim: ft=ansible :
