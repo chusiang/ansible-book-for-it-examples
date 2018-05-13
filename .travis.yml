@@ -214,6 +214,32 @@ jobs:
         - echo "==> [v2.5] Dry-run ..."
         - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd ch03-3-3 && ansible-playbook --check *.yml"
 
+    # ---- Ch03-4 : Facts ------------------------------------------------------
+
+    - stage: Ch03-4
+      script:
+
+        - echo "==> [v2.4] Show version ..."
+        - docker run --rm -it chusiang/ansible:2.4 ansible --version
+
+        - echo "==> [v2.4] Check syntax ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd ch03-4 && ansible-playbook --syntax-check *.yml"
+
+        - echo "==> [v2.4] Run ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd ch03-4 && make all"
+
+    - stage: Ch03-4
+      script:
+
+        - echo "==> [v2.5] Show version ..."
+        - docker run --rm -it chusiang/ansible:2.5 ansible --version
+
+        - echo "==> [v2.5] Check syntax ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd ch03-4 && ansible-playbook --syntax-check *.yml"
+
+        - echo "==> [v2.5] Run ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd ch03-4 && make all"
+
 notifications:
   slack:
     secure: ahJpJNXaODcNDS8SUCWWR8+WxRLKhmF6Qt3oAwfH13iHJ3JPwpu19zpsE8EPydRcQRv/OcizHsdDePL98VrxMj1fWzFr8QG3v19mUn5rRyvC5/XSdUnuDqQPHVlyKkI52S3/Pvi+cC4Af2eu0en2GwX/NRkH6qoKxGvy2U58Xqt0Md5mYNNk8RqVgzPi+ni4qdf91ILNSBwfmjM90BKLE/n5nHxswhtddmx6YlJkbAgBu07+xqefWkkzu5BRW2h1Y3vaXJr107RmXF/PyJSJKLJ+NACBxRnvwJRvFzxHRA66KuoS5pmub6CwUe/e1uO/l/qXetjSRIFsQYuMEpZxkjSD/mZTwFxuV4+t4g2sLYIVVK2lUtT46N8g0CZ4GxMXJ/1181HCpSTIjKuxvLvRvZAPD3TRrvrfkY/jPwcCOP37/33R1EoxqrRczeNTLiiwjxnF5LuJmX8x0JKQw/G7zx+IwPP5u/onCgOMFBzTkFZbpPIhSEOfJChOuDSq10Rm/7dlSXj0ds4gBQV6hkjvu0yJvgJI1yhRsWL6+rV8h9tvYpVoLapHvYcboDApTlmveg+ZpR4Mfc7pBI+6z9inaj+R1IHBNTvc93VxegF5i5DeevEPqxadajYeibwtOLEjbNXmDEYB3GdXnS0vLgHl0fKIYinmesxvMhP+Atj+tqc=
