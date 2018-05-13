@@ -225,9 +225,6 @@ jobs:
         - echo "==> [v2.4] Check syntax ..."
         - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd ch03-4 && ansible-playbook --syntax-check *.yml"
 
-        - echo "==> [v2.4] Run ..."
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd ch03-4 && make all"
-
     - stage: Ch03-4
       script:
 
@@ -237,8 +234,26 @@ jobs:
         - echo "==> [v2.5] Check syntax ..."
         - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd ch03-4 && ansible-playbook --syntax-check *.yml"
 
-        - echo "==> [v2.5] Run ..."
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd ch03-4 && make all"
+    - stage: Ch03-4
+      script:
+
+        - echo "==> Install the requires apt package and python ..."
+        - sudo apt-get update
+        - sudo apt-get install -y --no-install-recommends linux-headers-generic gcc build-essential python python-pip python-dev libffi-dev
+        - sudo apt-get clean
+
+        - echo "==> Install the Ansible ..."
+        - sudo apt-get install -y --no-install-recommends python-software-properties software-properties-common
+        - sudo add-apt-repository ppa:ansible/ansible -y
+        - sudo apt-get update
+        - sudo apt-get install -y --no-install-recommends ansible
+        - sudo apt-get clean
+
+        - echo "==> Show version ..."
+        - ansible --version
+
+        - echo "==> Run ..."
+        - cd ch03-4 && make all
 
 notifications:
   slack:
