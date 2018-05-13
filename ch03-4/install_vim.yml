@@ -17,4 +17,4 @@
         state: present
       when: ansible_pkg_mgr == "yum"
 
-# vim: ft=ansible :
+# vim: ft=yaml.ansible :

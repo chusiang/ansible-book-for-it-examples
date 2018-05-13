@@ -12,4 +12,4 @@
       debug:
         msg: "{{ result.stdout }}"
 
-# vim: ft=ansible :
+# vim: ft=yaml.ansible :
