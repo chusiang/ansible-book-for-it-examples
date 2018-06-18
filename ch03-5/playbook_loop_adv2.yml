@@ -1,0 +1,15 @@
+---
+- name: Advanced loop2 on playbook
+  hosts: localhost
+  tasks:
+    - name: Create multiple symbolic link
+      file:
+        src:  "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        state: link
+      with_items:
+        - { src: 'playbook_loop.yml',       dest: 'loop0.yml' }
+        - { src: 'playbook_loop_adv1.yml',  dest: 'loop1.yml' }
+        - { src: 'playbook_loop_adv2.yml',  dest: 'loop2.yml' }
+
+# vim: ft=yaml.ansible :

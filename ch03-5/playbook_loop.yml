@@ -1,0 +1,15 @@
+---
+- name: Basic loop on playbook
+  hosts: localhost
+  tasks:
+    - name: Print loop message
+      debug:
+        msg: "Hello Loop{{ item }}"
+      with_items:
+        - "0"
+        - "1"
+        - "2"
+      loop_control:
+        label: "{{ item }}"
+
+# vim: ft=yaml.ansible :
