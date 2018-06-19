@@ -1,0 +1,22 @@
+---
+- name: Play the template module
+  hosts: localhost
+  vars:
+    dynamic_word: "World"
+
+  tasks:
+    - name: Generation hello_world.txt file
+      template:
+        src:  hello_world.txt.j2
+        dest: hello_world.txt
+
+    - name: Get file context
+      command: cat hello_world.txt
+      register: result
+      changed_when: false
+
+    - name: Print stdout
+      debug:
+        msg: "{{ result.stdout_lines }}"
+
+# vim: ft=yaml.ansible :

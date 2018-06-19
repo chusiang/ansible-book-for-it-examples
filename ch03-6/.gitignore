@@ -1,0 +1,6 @@
+# Ansible
+*.retry
+hello_world.txt
+
+# macOS
+.DS_Store
