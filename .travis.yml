@@ -308,7 +308,7 @@ jobs:
         - sudo apt-get install -y --no-install-recommends python-software-properties software-properties-common
         - sudo add-apt-repository ppa:ansible/ansible -y
         - sudo apt-get update
-        - sudo apt-get install -y --no-install-recommends ansible
+        - sudo apt-get install -y --no-install-recommends --allow-unauthenticated ansible
         - sudo apt-get clean
 
         - echo "==> Show version ..."
@@ -391,7 +391,7 @@ jobs:
         - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.6 /bin/sh -c "cd ch03-6 && ansible-playbook --syntax-check *.yml"
 
         - echo "==> [v2.6] Run ..."
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.6 /bin/sh -c "cd ch03-6 && make all"
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd ch03-6 && make all"
 
 notifications:
   slack:
