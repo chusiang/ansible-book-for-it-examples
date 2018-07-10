@@ -39,6 +39,20 @@ jobs:
         - echo "==> [v2.5] Run ..."
         - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd ch02 && ansible-playbook *.yml"
 
+    # Ansible v2.6
+    - stage: Ch02
+      script:
+
+        - echo "==> [v2.6] Show version ..."
+        - docker run --rm -it chusiang/ansible:2.5 ansible --version
+
+        - echo "==> [v2.6] Check syntax ..."
+        - docker run --rm -it chusiang/ansible:2.6 ansible --version
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.6 /bin/sh -c "cd ch02 && ansible-playbook --syntax-check *.yml"
+
+        - echo "==> [v2.6] Run ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.6 /bin/sh -c "cd ch02 && ansible-playbook *.yml"
+
     # ---- Ch02-1 : How to deploy the ansible ----------------------------------
 
     - stage: Ch02-1
@@ -58,6 +72,15 @@ jobs:
 
         - echo "==> [v2.5] Run ..."
         - docker run --rm -it chusiang/ansible:2.5 ansible all -m command -a 'echo Hello World'
+
+    - stage: Ch02-1
+      script:
+
+        - echo "==> [v2.6] Show version ..."
+        - docker run --rm -it chusiang/ansible:2.6 ansible --version
+
+        - echo "==> [v2.6] Run ..."
+        - docker run --rm -it chusiang/ansible:2.6 ansible all -m command -a 'echo Hello World'
 
     # ---- Ch02-2-1 : How to practive the ansible with vagrant -----------------
 
@@ -79,6 +102,15 @@ jobs:
         - echo "==> [v2.5] Run ..."
         - docker run --rm -it chusiang/ansible:2.5 ansible all -m ping
 
+    - stage: Ch02-2-1
+      script:
+
+        - echo "==> [v2.6] Show version ..."
+        - docker run --rm -it chusiang/ansible:2.6 ansible --version
+
+        - echo "==> [v2.6] Run ..."
+        - docker run --rm -it chusiang/ansible:2.6 ansible all -m ping
+
     # ---- Ch02-2-2 : How to practive the ansible with docker ------------------
 
     - stage: Ch02-2-2
@@ -98,6 +130,15 @@ jobs:
 
         - echo "==> [v2.5] Run ..."
         - docker run --rm -it chusiang/ansible:2.5 ansible all -m command -a 'echo Hello World on Docker.'
+
+    - stage: Ch02-2-2
+      script:
+
+        - echo "==> [v2.6] Show version ..."
+        - docker run --rm -it chusiang/ansible:2.6 ansible --version
+
+        - echo "==> [v2.6] Run ..."
+        - docker run --rm -it chusiang/ansible:2.6 ansible all -m command -a 'echo Hello World on Docker.'
 
     # ---- Ch02-2-3 : How to practive the ansible with jupyter -----------------
 
@@ -214,6 +255,18 @@ jobs:
         - echo "==> [v2.5] Dry-run ..."
         - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd ch03-3-3 && ansible-playbook --check *.yml"
 
+    - stage: Ch03-3-3
+      script:
+
+        - echo "==> [v2.6] Show version ..."
+        - docker run --rm -it chusiang/ansible:2.6 ansible --version
+
+        - echo "==> [v2.6] Check syntax ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.6 /bin/sh -c "cd ch03-3-3 && ansible-playbook --syntax-check *.yml"
+
+        - echo "==> [v2.6] Dry-run ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.6 /bin/sh -c "cd ch03-3-3 && ansible-playbook --check *.yml"
+
     # ---- Ch03-4 : Facts ------------------------------------------------------
 
     - stage: Ch03-4
@@ -233,6 +286,15 @@ jobs:
 
         - echo "==> [v2.5] Check syntax ..."
         - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd ch03-4 && ansible-playbook --syntax-check *.yml"
+
+    - stage: Ch03-4
+      script:
+
+        - echo "==> [v2.6] Show version ..."
+        - docker run --rm -it chusiang/ansible:2.6 ansible --version
+
+        - echo "==> [v2.6] Check syntax ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.6 /bin/sh -c "cd ch03-4 && ansible-playbook --syntax-check *.yml"
 
     - stage: Ch03-4
       script:
@@ -281,6 +343,18 @@ jobs:
         - echo "==> [v2.5] Run ..."
         - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd ch03-5 && make all"
 
+    - stage: Ch03-5
+      script:
+
+        - echo "==> [v2.6] Show version ..."
+        - docker run --rm -it chusiang/ansible:2.6 ansible --version
+
+        - echo "==> [v2.6] Check syntax ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.6 /bin/sh -c "cd ch03-5 && ansible-playbook --syntax-check *.yml"
+
+        - echo "==> [v2.6] Run ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.6 /bin/sh -c "cd ch03-5 && make all"
+
     # ---- Ch03-6 : Template -------------------------------------------------------
 
     - stage: Ch03-6
@@ -306,6 +380,18 @@ jobs:
 
         - echo "==> [v2.5] Run ..."
         - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd ch03-6 && make all"
+
+    - stage: Ch03-6
+      script:
+
+        - echo "==> [v2.6] Show version ..."
+        - docker run --rm -it chusiang/ansible:2.6 ansible --version
+
+        - echo "==> [v2.6] Check syntax ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.6 /bin/sh -c "cd ch03-6 && ansible-playbook --syntax-check *.yml"
+
+        - echo "==> [v2.6] Run ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.6 /bin/sh -c "cd ch03-6 && make all"
 
 notifications:
   slack:
