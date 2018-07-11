@@ -1,0 +1,91 @@
+# ============================================================
+#  Author: Chu-Siang Lai / chusiang (at) drx.tw
+#  Blog: http://note.drx.tw
+#  Filename: setup_nginx.yml
+#  Modified: 2018-07-11 22:01
+#  Description: A sample demo for handlers.
+# ============================================================
+---
+
+- name: Setup the nginx
+  hosts: all
+  vars:
+    username: "chusiang"
+    mail: "chusiang (at) drx.tw"
+    blog: "http://note.drx.tw"
+
+  tasks:
+    # 執行 'apt-get update' 指令。
+    - name: Update apt repo cache
+      become: true
+      apt:
+        name: nginx
+        update_cache: yes
+
+    # 執行 "apt-get install nginx" 指令。
+    - name: Install nginx with apt
+      become: true
+      apt:
+        name: nginx
+        state: present
+
+    # 於網頁根目錄（DocumentRoot）編輯 index.html。
+    - name: Modify index.html
+      become: true
+      template:
+        src: templates/index.html.j2
+        dest: /var/www/html/index.html
+        owner: www-data
+        group: www-data
+        mode: "0644"
+        backup: yes
+      notify: restart nginx
+
+    # （security）關閉 server_tokens：移除 server_tokens 前的 '#' 字元。
+    - name: Turn server_tokens off
+      become: true
+      lineinfile:
+        dest: /etc/nginx/nginx.conf
+        regexp: "server_tokens off;"
+        insertafter: "# server_tokens off;"
+        line: "server_tokens off;"
+        state: present
+      notify: restart nginx
+
+    - name: Start nginx
+      become: true
+      service:
+        name: nginx
+        enabled: yes
+        state: started
+
+  # handlers
+  #
+  # * 當確認事件有被觸發才會動作。
+  # * 一個 handler 可被多個 task 關聯（notify），並於 tasks 跑完才會執行。
+  handlers:
+    # 執行 'sudo service nginx restart' 指令。此 handler task 將會與
+    # "Modify index.html" 和 "Turn server_tokens off" 兩個 tasks 連動。
+    - name: restart nginx
+      become: true
+      service:
+        name: nginx
+        state: restarted
+
+  # post_tasks:
+  #
+  # 在 tasks 之後執行的 tasks。
+  post_tasks:
+    # 取得網頁內容。
+    - name: Get web context
+      uri:
+        url: http://localhost
+        return_content: yes
+      register: web_context
+
+    # 印出檢查結果。
+    - name: Print web context
+      debug:
+        msg: "{{ web_context.content }}"
+
+# vim: ft=yaml.ansible :
