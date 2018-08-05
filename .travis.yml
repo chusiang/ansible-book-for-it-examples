@@ -401,8 +401,14 @@ jobs:
         - echo "==> [v2.4] Show version ..."
         - docker run --rm -it chusiang/ansible:2.4 ansible --version
 
+        - echo "==> [v2.4] Init ..."
+        - cd ch03-7 && make init
+
         - echo "==> [v2.4] Run ..."
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd ch03-7 && make all"
+        - docker run --rm -it --link server1:server1 -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "make ci"
+
+        - echo "==> [v2.4] Clean ..."
+        - make clean
 
     - stage: Ch03-7
       script:
@@ -410,8 +416,14 @@ jobs:
         - echo "==> [v2.5] Show version ..."
         - docker run --rm -it chusiang/ansible:2.5 ansible --version
 
+        - echo "==> [v2.5] Init ..."
+        - cd ch03-7 && make init
+
         - echo "==> [v2.5] Run ..."
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd ch03-7 && make all"
+        - docker run --rm -it --link server1:server1 -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "make ci"
+
+        - echo "==> [v2.5] Clean ..."
+        - make clean
 
     - stage: Ch03-7
       script:
@@ -419,8 +431,14 @@ jobs:
         - echo "==> [v2.6] Show version ..."
         - docker run --rm -it chusiang/ansible:2.6 ansible --version
 
+        - echo "==> [v2.6] Init ..."
+        - cd ch03-7 && make init
+
         - echo "==> [v2.6] Run ..."
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd ch03-7 && make all"
+        - docker run --rm -it --link server1:server1 -v $PWD:/srv chusiang/ansible:2.6 /bin/sh -c "make ci"
+
+        - echo "==> [v2.6] Clean ..."
+        - make clean
 
 notifications:
   slack:
