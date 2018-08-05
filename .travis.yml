@@ -355,7 +355,7 @@ jobs:
         - echo "==> [v2.6] Run ..."
         - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.6 /bin/sh -c "cd ch03-5 && make all"
 
-    # ---- Ch03-6 : Template -------------------------------------------------------
+    # ---- Ch03-6 : Template ---------------------------------------------------
 
     - stage: Ch03-6
       script:
@@ -392,6 +392,35 @@ jobs:
 
         - echo "==> [v2.6] Run ..."
         - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd ch03-6 && make all"
+
+    # ---- Ch03-7 : Handler ----------------------------------------------------
+
+    - stage: Ch03-7
+      script:
+
+        - echo "==> [v2.4] Show version ..."
+        - docker run --rm -it chusiang/ansible:2.4 ansible --version
+
+        - echo "==> [v2.4] Run ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd ch03-7 && make all"
+
+    - stage: Ch03-7
+      script:
+
+        - echo "==> [v2.5] Show version ..."
+        - docker run --rm -it chusiang/ansible:2.5 ansible --version
+
+        - echo "==> [v2.5] Run ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd ch03-7 && make all"
+
+    - stage: Ch03-7
+      script:
+
+        - echo "==> [v2.6] Show version ..."
+        - docker run --rm -it chusiang/ansible:2.6 ansible --version
+
+        - echo "==> [v2.6] Run ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd ch03-7 && make all"
 
 notifications:
   slack:
