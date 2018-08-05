@@ -12,133 +12,143 @@ jobs:
 
     # ---- Ch02 : How to use the ansible ---------------------------------------
 
-    # Ansible v2.4
     - stage: Ch02
+      env:
+        - ANSIBLE_VERSION="2.4"
       script:
 
-        - echo "==> [v2.4] Show version ..."
-        - docker run --rm -it chusiang/ansible:2.4 ansible --version
+        - echo "==> [v$ANSIBLE_VERSION] Show version ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
 
-        - echo "==> [v2.4] Check syntax ..."
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd ch02 && ansible-playbook --syntax-check *.yml"
+        - echo "==> [v$ANSIBLE_VERSION] Check syntax ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd ch02 && ansible-playbook --syntax-check *.yml"
 
-        - echo "==> [v2.4] Run ..."
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd ch02 && ansible-playbook *.yml"
+        - echo "==> [v$ANSIBLE_VERSION] Run ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd ch02 && ansible-playbook *.yml"
 
-    # Ansible v2.5
     - stage: Ch02
+      env:
+        - ANSIBLE_VERSION="2.5"
       script:
 
-        - echo "==> [v2.5] Show version ..."
-        - docker run --rm -it chusiang/ansible:2.5 ansible --version
+        - echo "==> [v$ANSIBLE_VERSION] Show version ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
 
-        - echo "==> [v2.5] Check syntax ..."
-        - docker run --rm -it chusiang/ansible:2.5 ansible --version
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd ch02 && ansible-playbook --syntax-check *.yml"
+        - echo "==> [v$ANSIBLE_VERSION] Check syntax ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd ch02 && ansible-playbook --syntax-check *.yml"
 
-        - echo "==> [v2.5] Run ..."
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd ch02 && ansible-playbook *.yml"
+        - echo "==> [v$ANSIBLE_VERSION] Run ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd ch02 && ansible-playbook *.yml"
 
-    # Ansible v2.6
     - stage: Ch02
+      env:
+        - ANSIBLE_VERSION="2.6"
       script:
 
-        - echo "==> [v2.6] Show version ..."
-        - docker run --rm -it chusiang/ansible:2.5 ansible --version
+        - echo "==> [v$ANSIBLE_VERSION] Show version ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
 
-        - echo "==> [v2.6] Check syntax ..."
-        - docker run --rm -it chusiang/ansible:2.6 ansible --version
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.6 /bin/sh -c "cd ch02 && ansible-playbook --syntax-check *.yml"
+        - echo "==> [v$ANSIBLE_VERSION] Check syntax ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd ch02 && ansible-playbook --syntax-check *.yml"
 
-        - echo "==> [v2.6] Run ..."
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.6 /bin/sh -c "cd ch02 && ansible-playbook *.yml"
+        - echo "==> [v$ANSIBLE_VERSION] Run ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd ch02 && ansible-playbook *.yml"
 
     # ---- Ch02-1 : How to deploy the ansible ----------------------------------
 
     - stage: Ch02-1
+      env:
+        - ANSIBLE_VERSION="2.4"
       script:
+        - echo "==> [v$ANSIBLE_VERSION] Show version ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
 
-        - echo "==> [v2.4] Show version ..."
-        - docker run --rm -it chusiang/ansible:2.4 ansible --version
-
-        - echo "==> [v2.4] Run ..."
-        - docker run --rm -it chusiang/ansible:2.4 ansible all -m command -a 'echo Hello World'
+        - echo "==> [v$ANSIBLE_VERSION] Run ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible all -m command -a 'echo Hello World'
 
     - stage: Ch02-1
+      env:
+        - ANSIBLE_VERSION="2.5"
       script:
+        - echo "==> [v$ANSIBLE_VERSION] Show version ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
 
-        - echo "==> [v2.5] Show version ..."
-        - docker run --rm -it chusiang/ansible:2.5 ansible --version
-
-        - echo "==> [v2.5] Run ..."
-        - docker run --rm -it chusiang/ansible:2.5 ansible all -m command -a 'echo Hello World'
+        - echo "==> [v$ANSIBLE_VERSION] Run ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible all -m command -a 'echo Hello World'
 
     - stage: Ch02-1
+      env:
+        - ANSIBLE_VERSION="2.6"
       script:
+        - echo "==> [v$ANSIBLE_VERSION] Show version ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
 
-        - echo "==> [v2.6] Show version ..."
-        - docker run --rm -it chusiang/ansible:2.6 ansible --version
-
-        - echo "==> [v2.6] Run ..."
-        - docker run --rm -it chusiang/ansible:2.6 ansible all -m command -a 'echo Hello World'
+        - echo "==> [v$ANSIBLE_VERSION] Run ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible all -m command -a 'echo Hello World'
 
     # ---- Ch02-2-1 : How to practive the ansible with vagrant -----------------
 
     - stage: Ch02-2-1
+      env:
+        - ANSIBLE_VERSION="2.4"
       script:
+        - echo "==> [v$ANSIBLE_VERSION] Show version ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
 
-        - echo "==> [v2.4] Show version ..."
-        - docker run --rm -it chusiang/ansible:2.4 ansible --version
-
-        - echo "==> [v2.4] Run ..."
-        - docker run --rm -it chusiang/ansible:2.4 ansible all -m ping
+        - echo "==> [v$ANSIBLE_VERSION] Run ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible all -m ping
 
     - stage: Ch02-2-1
+      env:
+        - ANSIBLE_VERSION="2.5"
       script:
+        - echo "==> [v$ANSIBLE_VERSION] Show version ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
 
-        - echo "==> [v2.5] Show version ..."
-        - docker run --rm -it chusiang/ansible:2.5 ansible --version
-
-        - echo "==> [v2.5] Run ..."
-        - docker run --rm -it chusiang/ansible:2.5 ansible all -m ping
+        - echo "==> [v$ANSIBLE_VERSION] Run ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible all -m ping
 
     - stage: Ch02-2-1
+      env:
+        - ANSIBLE_VERSION="2.6"
       script:
+        - echo "==> [v$ANSIBLE_VERSION] Show version ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
 
-        - echo "==> [v2.6] Show version ..."
-        - docker run --rm -it chusiang/ansible:2.6 ansible --version
-
-        - echo "==> [v2.6] Run ..."
-        - docker run --rm -it chusiang/ansible:2.6 ansible all -m ping
+        - echo "==> [v$ANSIBLE_VERSION] Run ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible all -m ping
 
     # ---- Ch02-2-2 : How to practive the ansible with docker ------------------
 
     - stage: Ch02-2-2
+      env:
+        - ANSIBLE_VERSION="2.4"
       script:
+        - echo "==> [v$ANSIBLE_VERSION] Show version ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
 
-        - echo "==> [v2.4] Show version ..."
-        - docker run --rm -it chusiang/ansible:2.4 ansible --version
-
-        - echo "==> [v2.4] Run ..."
-        - docker run --rm -it chusiang/ansible:2.4 ansible all -m command -a 'echo Hello World on Docker.'
+        - echo "==> [v$ANSIBLE_VERSION] Run ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible all -m command -a 'echo Hello World on Docker.'
 
     - stage: Ch02-2-2
+      env:
+        - ANSIBLE_VERSION="2.5"
       script:
+        - echo "==> [v$ANSIBLE_VERSION] Show version ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
 
-        - echo "==> [v2.5] Show version ..."
-        - docker run --rm -it chusiang/ansible:2.5 ansible --version
-
-        - echo "==> [v2.5] Run ..."
-        - docker run --rm -it chusiang/ansible:2.5 ansible all -m command -a 'echo Hello World on Docker.'
+        - echo "==> [v$ANSIBLE_VERSION] Run ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible all -m command -a 'echo Hello World on Docker.'
 
     - stage: Ch02-2-2
+      env:
+        - ANSIBLE_VERSION="2.6"
       script:
+        - echo "==> [v$ANSIBLE_VERSION] Show version ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
 
-        - echo "==> [v2.6] Show version ..."
-        - docker run --rm -it chusiang/ansible:2.6 ansible --version
-
-        - echo "==> [v2.6] Run ..."
-        - docker run --rm -it chusiang/ansible:2.6 ansible all -m command -a 'echo Hello World on Docker.'
+        - echo "==> [v$ANSIBLE_VERSION] Run ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible all -m command -a 'echo Hello World on Docker.'
 
     # ---- Ch02-2-3 : How to practive the ansible with jupyter -----------------
 
@@ -232,70 +242,81 @@ jobs:
     # ---- Ch03-3-3 : how to send notification to slack on ansible -------------
 
     - stage: Ch03-3-3
+      env:
+        - ANSIBLE_VERSION="2.4"
       script:
+        - echo "==> [v$ANSIBLE_VERSION] Show version ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
 
-        - echo "==> [v2.4] Show version ..."
-        - docker run --rm -it chusiang/ansible:2.4 ansible --version
+        - echo "==> [v$ANSIBLE_VERSION] Check syntax ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd ch03-3-3 && ansible-playbook --syntax-check *.yml"
 
-        - echo "==> [v2.4] Check syntax ..."
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd ch03-3-3 && ansible-playbook --syntax-check *.yml"
-
-        - echo "==> [v2.4] Dry-run ..."
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd ch03-3-3 && ansible-playbook --check *.yml"
+        - echo "==> [v$ANSIBLE_VERSION] Dry-run ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd ch03-3-3 && ansible-playbook --check *.yml"
 
     - stage: Ch03-3-3
+      env:
+        - ANSIBLE_VERSION="2.5"
       script:
+        - echo "==> [v$ANSIBLE_VERSION] Show version ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
 
-        - echo "==> [v2.5] Show version ..."
-        - docker run --rm -it chusiang/ansible:2.5 ansible --version
+        - echo "==> [v$ANSIBLE_VERSION] Check syntax ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd ch03-3-3 && ansible-playbook --syntax-check *.yml"
 
-        - echo "==> [v2.5] Check syntax ..."
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd ch03-3-3 && ansible-playbook --syntax-check *.yml"
-
-        - echo "==> [v2.5] Dry-run ..."
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd ch03-3-3 && ansible-playbook --check *.yml"
+        - echo "==> [v$ANSIBLE_VERSION] Dry-run ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd ch03-3-3 && ansible-playbook --check *.yml"
 
     - stage: Ch03-3-3
+      env:
+        - ANSIBLE_VERSION="2.6"
       script:
+        - echo "==> [v$ANSIBLE_VERSION] Show version ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
 
-        - echo "==> [v2.6] Show version ..."
-        - docker run --rm -it chusiang/ansible:2.6 ansible --version
+        - echo "==> [v$ANSIBLE_VERSION] Check syntax ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd ch03-3-3 && ansible-playbook --syntax-check *.yml"
 
-        - echo "==> [v2.6] Check syntax ..."
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.6 /bin/sh -c "cd ch03-3-3 && ansible-playbook --syntax-check *.yml"
+        - echo "==> [v$ANSIBLE_VERSION] Dry-run ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd ch03-3-3 && ansible-playbook --check *.yml"
 
-        - echo "==> [v2.6] Dry-run ..."
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.6 /bin/sh -c "cd ch03-3-3 && ansible-playbook --check *.yml"
 
     # ---- Ch03-4 : Facts ------------------------------------------------------
 
     - stage: Ch03-4
+      env:
+        - ANSIBLE_VERSION="2.4"
       script:
 
-        - echo "==> [v2.4] Show version ..."
-        - docker run --rm -it chusiang/ansible:2.4 ansible --version
+        - echo "==> [v$ANSIBLE_VERSION] Show version ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
 
-        - echo "==> [v2.4] Check syntax ..."
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd ch03-4 && ansible-playbook --syntax-check *.yml"
+        - echo "==> [v$ANSIBLE_VERSION] Check syntax ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd ch03-4 && ansible-playbook --syntax-check *.yml"
 
     - stage: Ch03-4
+      env:
+        - ANSIBLE_VERSION="2.5"
       script:
 
-        - echo "==> [v2.5] Show version ..."
-        - docker run --rm -it chusiang/ansible:2.5 ansible --version
+        - echo "==> [v$ANSIBLE_VERSION] Show version ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
 
-        - echo "==> [v2.5] Check syntax ..."
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd ch03-4 && ansible-playbook --syntax-check *.yml"
+        - echo "==> [v$ANSIBLE_VERSION] Check syntax ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd ch03-4 && ansible-playbook --syntax-check *.yml"
 
     - stage: Ch03-4
+      env:
+        - ANSIBLE_VERSION="2.6"
       script:
 
-        - echo "==> [v2.6] Show version ..."
-        - docker run --rm -it chusiang/ansible:2.6 ansible --version
+        - echo "==> [v$ANSIBLE_VERSION] Show version ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
 
-        - echo "==> [v2.6] Check syntax ..."
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.6 /bin/sh -c "cd ch03-4 && ansible-playbook --syntax-check *.yml"
+        - echo "==> [v$ANSIBLE_VERSION] Check syntax ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd ch03-4 && ansible-playbook --syntax-check *.yml"
 
+    # TODO: Need refactor like ch03-7.
     - stage: Ch03-4
       script:
 
@@ -320,85 +341,121 @@ jobs:
     # ---- Ch03-5 : Loop -------------------------------------------------------
 
     - stage: Ch03-5
+      env:
+        - ANSIBLE_VERSION="2.4"
       script:
+        - echo "==> [v$ANSIBLE_VERSION] Show version ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
 
-        - echo "==> [v2.4] Show version ..."
-        - docker run --rm -it chusiang/ansible:2.4 ansible --version
+        - echo "==> [v$ANSIBLE_VERSION] Check syntax ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd ch03-5 && ansible-playbook --syntax-check *.yml"
 
-        - echo "==> [v2.4] Check syntax ..."
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd ch03-5 && ansible-playbook --syntax-check *.yml"
-
-        - echo "==> [v2.4] Run ..."
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd ch03-5 && make all"
+        - echo "==> [v$ANSIBLE_VERSION] Run ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd ch03-5 && make all"
 
     - stage: Ch03-5
+      env:
+        - ANSIBLE_VERSION="2.5"
       script:
+        - echo "==> [v$ANSIBLE_VERSION] Show version ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
 
-        - echo "==> [v2.5] Show version ..."
-        - docker run --rm -it chusiang/ansible:2.5 ansible --version
+        - echo "==> [v$ANSIBLE_VERSION] Check syntax ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd ch03-5 && ansible-playbook --syntax-check *.yml"
 
-        - echo "==> [v2.5] Check syntax ..."
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd ch03-5 && ansible-playbook --syntax-check *.yml"
-
-        - echo "==> [v2.5] Run ..."
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd ch03-5 && make all"
+        - echo "==> [v$ANSIBLE_VERSION] Run ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd ch03-5 && make all"
 
     - stage: Ch03-5
+      env:
+        - ANSIBLE_VERSION="2.6"
       script:
+        - echo "==> [v$ANSIBLE_VERSION] Show version ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
 
-        - echo "==> [v2.6] Show version ..."
-        - docker run --rm -it chusiang/ansible:2.6 ansible --version
+        - echo "==> [v$ANSIBLE_VERSION] Check syntax ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd ch03-5 && ansible-playbook --syntax-check *.yml"
 
-        - echo "==> [v2.6] Check syntax ..."
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.6 /bin/sh -c "cd ch03-5 && ansible-playbook --syntax-check *.yml"
-
-        - echo "==> [v2.6] Run ..."
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.6 /bin/sh -c "cd ch03-5 && make all"
+        - echo "==> [v$ANSIBLE_VERSION] Run ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd ch03-5 && make all"
 
     # ---- Ch03-6 : Template ---------------------------------------------------
 
     - stage: Ch03-6
+      env:
+        - ANSIBLE_VERSION="2.4"
       script:
+        - echo "==> [v$ANSIBLE_VERSION] Show version ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
 
-        - echo "==> [v2.4] Show version ..."
-        - docker run --rm -it chusiang/ansible:2.4 ansible --version
+        - echo "==> [v$ANSIBLE_VERSION] Check syntax ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd ch03-6 && ansible-playbook --syntax-check *.yml"
 
-        - echo "==> [v2.4] Check syntax ..."
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd ch03-6 && ansible-playbook --syntax-check *.yml"
-
-        - echo "==> [v2.4] Run ..."
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd ch03-6 && make all"
+        - echo "==> [v$ANSIBLE_VERSION] Run ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd ch03-6 && make all"
 
     - stage: Ch03-6
+      env:
+        - ANSIBLE_VERSION="2.5"
       script:
+        - echo "==> [v$ANSIBLE_VERSION] Show version ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
 
-        - echo "==> [v2.5] Show version ..."
-        - docker run --rm -it chusiang/ansible:2.5 ansible --version
+        - echo "==> [v$ANSIBLE_VERSION] Check syntax ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd ch03-6 && ansible-playbook --syntax-check *.yml"
 
-        - echo "==> [v2.5] Check syntax ..."
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd ch03-6 && ansible-playbook --syntax-check *.yml"
-
-        - echo "==> [v2.5] Run ..."
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd ch03-6 && make all"
+        - echo "==> [v$ANSIBLE_VERSION] Run ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd ch03-6 && make all"
 
     - stage: Ch03-6
+      env:
+        - ANSIBLE_VERSION="2.6"
       script:
+        - echo "==> [v$ANSIBLE_VERSION] Show version ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
 
-        - echo "==> [v2.6] Show version ..."
-        - docker run --rm -it chusiang/ansible:2.6 ansible --version
+        - echo "==> [v$ANSIBLE_VERSION] Check syntax ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd ch03-6 && ansible-playbook --syntax-check *.yml"
 
-        - echo "==> [v2.6] Check syntax ..."
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.6 /bin/sh -c "cd ch03-6 && ansible-playbook --syntax-check *.yml"
-
-        - echo "==> [v2.6] Run ..."
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd ch03-6 && make all"
+        - echo "==> [v$ANSIBLE_VERSION] Run ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd ch03-6 && make all"
 
     # ---- Ch03-7 : Handler ----------------------------------------------------
 
     - stage: Ch03-7
       env:
         - ANSIBLE_VERSION="2.4"
+      script:
+        - echo "==> [v$ANSIBLE_VERSION] Show version ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
+
+        - echo "==> [v$ANSIBLE_VERSION] Init ..."
+        - cd ch03-7 && make init
+
+        - echo "==> [v$ANSIBLE_VERSION] Run ..."
+        - docker run --rm -it --link server1:server1 -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "make ci"
+
+        - echo "==> [v$ANSIBLE_VERSION] Clean ..."
+        - make clean
+
+    - stage: Ch03-7
+      env:
         - ANSIBLE_VERSION="2.5"
+      script:
+        - echo "==> [v$ANSIBLE_VERSION] Show version ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
+
+        - echo "==> [v$ANSIBLE_VERSION] Init ..."
+        - cd ch03-7 && make init
+
+        - echo "==> [v$ANSIBLE_VERSION] Run ..."
+        - docker run --rm -it --link server1:server1 -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "make ci"
+
+        - echo "==> [v$ANSIBLE_VERSION] Clean ..."
+        - make clean
+
+    - stage: Ch03-7
+      env:
         - ANSIBLE_VERSION="2.6"
       script:
         - echo "==> [v$ANSIBLE_VERSION] Show version ..."
