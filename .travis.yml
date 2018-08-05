@@ -152,15 +152,16 @@ jobs:
 
     # ---- Ch02-2-3 : How to practive the ansible with jupyter -----------------
 
-    # control-machine with `chusiang/ansible-jupyter`.
+    # Control machine.
     - stage: Ch02-2-3
+      env:
+        - DOCKER_IMAGE="chusiang/ansible-jupyter:ubuntu-16.04"
       script:
-
         - echo "==> Install some necessity packages ..."
         - sudo apt-get install -y curl
 
         - echo "==> Run the ansible-jupyter ..."
-        - docker run --name control-machine -p 8888:8888 -d chusiang/ansible-jupyter:ubuntu-16.04
+        - docker run --name control-machine -p 8888:8888 -d $DOCKER_IMAGE
 
         - echo "==> Show version ..."
         - docker exec -it control-machine python  --version
@@ -170,28 +171,31 @@ jobs:
         - echo "==> Check the jupyter website ..."
         - curl -I http://localhost:8888/
 
-    # managed-node with `chusiang/ansible-managed-node:ubuntu-16.04`.
+    # Managed node of Ubuntu 16.04.
     - stage: Ch02-2-3
+      env:
+        - DOCKER_IMAGE="chusiang/ansible-managed-node:ubuntu-16.04"
       script:
 
         - echo "==> Install some necessity packages ..."
         - sudo apt-get install -y netcat
 
         - echo "==> Run the managed nodes ..."
-        - docker run --name server1 -d -p 30001:22 chusiang/ansible-managed-node:ubuntu-16.04
+        - docker run --name server1 -d -p 30001:22 $DOCKER_IMAGE
 
         - echo "==> Check the ssh service on managed node ..."
         - nc -w 1 -n 127.0.0.1 30001
 
-    # managed-node with `chusiang/ansible-managed-node:centos-7`.
+    # Managed node of CentOS 7.
     - stage: Ch02-2-3
+      env:
+        - DOCKER_IMAGE="chusiang/ansible-managed-node:centos-7"
       script:
-
         - echo "==> Install some necessity packages ..."
         - sudo apt-get install -y netcat
 
         - echo "==> Run the managed nodes ..."
-        - docker run --name server2 -d -p 30002:22 chusiang/ansible-managed-node:centos-7
+        - docker run --name server2 -d -p 30002:22 $DOCKER_IMAGE
 
         - echo "==> Check the ssh service on managed node ..."
         - nc -w 1 -n 127.0.0.1 30002
@@ -199,13 +203,15 @@ jobs:
     # ---- Ch02-2-4 : How to practive the ansible with docker compose ----------
 
     - stage: Ch02-2-4
+      env:
+        - DOCKER_COMPOSE_SCRIPT="https://github.com/docker/compose/releases/download/1.21.2/docker-compose-$(uname -s)-$(uname -m)"
       script:
 
         - echo "==> Install some necessity packages ..."
         - sudo apt-get install -y curl netcat
 
         # Install the docker-compose.
-        - sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+        - sudo curl -L $DOCKER_COMPOSE_SCRIPT -o /usr/local/bin/docker-compose
         - sudo chmod +x /usr/local/bin/docker-compose
         - docker-compose --version
 
@@ -228,16 +234,18 @@ jobs:
     # ---- Ch02-3 : Which are the ansible developer tools ----------------------
 
     - stage: Ch02-3
+      env:
+        - DOCKER_IMAGE="chusiang/vim-and-vi-mode:debian9"
       script:
 
         - echo "==> Show version ..."
-        - docker run -it --rm chusiang/vim-and-vi-mode:debian9 vim --version
+        - docker run -it --rm $DOCKER_IMAGE vim --version
 
         - echo "==> Install ..."
-        - docker run -it -v $PWD/ch02-3:/srv chusiang/vim-and-vi-mode:debian9 /bin/sh -c "cd /srv && make install" . | tee output.debian-9.log
+        - docker run -it -v $PWD/ch02-3:/srv $DOCKER_IMAGE /bin/sh -c "cd /srv && make install" . | tee output.log
 
         - echo "==> Check ..."
-        - grep "==> Done." output.debian-9.log
+        - grep "==> Done." output.log
 
     # ---- Ch03-3-3 : how to send notification to slack on ansible -------------
 
