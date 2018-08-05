@@ -287,56 +287,49 @@ jobs:
       env:
         - ANSIBLE_VERSION="2.4"
       script:
-
         - echo "==> [v$ANSIBLE_VERSION] Show version ..."
         - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
 
-        - echo "==> [v$ANSIBLE_VERSION] Check syntax ..."
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd ch03-4 && ansible-playbook --syntax-check *.yml"
+        - echo "==> [v$ANSIBLE_VERSION] Init ..."
+        - cd ch03-4 && make init
+
+        - echo "==> [v$ANSIBLE_VERSION] Run ..."
+        - docker run --rm -it --link server1:server1 -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "make ci"
+
+        - echo "==> [v$ANSIBLE_VERSION] Clean ..."
+        - make clean
 
     - stage: Ch03-4
       env:
         - ANSIBLE_VERSION="2.5"
       script:
-
         - echo "==> [v$ANSIBLE_VERSION] Show version ..."
         - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
 
-        - echo "==> [v$ANSIBLE_VERSION] Check syntax ..."
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd ch03-4 && ansible-playbook --syntax-check *.yml"
+        - echo "==> [v$ANSIBLE_VERSION] Init ..."
+        - cd ch03-4 && make init
+
+        - echo "==> [v$ANSIBLE_VERSION] Run ..."
+        - docker run --rm -it --link server1:server1 -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "make ci"
+
+        - echo "==> [v$ANSIBLE_VERSION] Clean ..."
+        - make clean
 
     - stage: Ch03-4
       env:
         - ANSIBLE_VERSION="2.6"
       script:
-
         - echo "==> [v$ANSIBLE_VERSION] Show version ..."
         - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
 
-        - echo "==> [v$ANSIBLE_VERSION] Check syntax ..."
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd ch03-4 && ansible-playbook --syntax-check *.yml"
+        - echo "==> [v$ANSIBLE_VERSION] Init ..."
+        - cd ch03-4 && make init
 
-    # TODO: Need refactor like ch03-7.
-    - stage: Ch03-4
-      script:
+        - echo "==> [v$ANSIBLE_VERSION] Run ..."
+        - docker run --rm -it --link server1:server1 -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "make ci"
 
-        - echo "==> Install the requires apt package and python ..."
-        - sudo apt-get update
-        - sudo apt-get install -y --no-install-recommends linux-headers-generic gcc build-essential python python-pip python-dev libffi-dev
-        - sudo apt-get clean
-
-        - echo "==> Install the Ansible ..."
-        - sudo apt-get install -y --no-install-recommends python-software-properties software-properties-common
-        - sudo add-apt-repository ppa:ansible/ansible -y
-        - sudo apt-get update
-        - sudo apt-get install -y --no-install-recommends --allow-unauthenticated ansible
-        - sudo apt-get clean
-
-        - echo "==> Show version ..."
-        - ansible --version
-
-        - echo "==> Run ..."
-        - cd ch03-4 && make all
+        - echo "==> [v$ANSIBLE_VERSION] Clean ..."
+        - make clean
 
     # ---- Ch03-5 : Loop -------------------------------------------------------
 
