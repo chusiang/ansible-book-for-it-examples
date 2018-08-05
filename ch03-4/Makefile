@@ -12,19 +12,25 @@ all: init main run clean
 
 main: show_distro show_pkg_mgr syntax_check run
 
-ci: show_distro show_pkg_mgr syntax_check ci_run
+ci: ci_show_distro ci_show_pkg_mgr syntax_check ci_run
 
 init:
 	docker run --name server1 -d -p 2022:22 chusiang/ansible-managed-node:ubuntu-16.04
 
-syntax_check:
-	ansible-playbook --syntax-check install_vim.yml
-
 show_distro:
 	ansible all -m setup -a "filter=ansible_distribution*"
 
+ci_show_distro:
+	ansible all -m setup -a "filter=ansible_distribution*" -e "ansible_ssh_host=server1 ansible_ssh_port=22"
+
 show_pkg_mgr:
 	ansible all -m setup -a "filter=ansible_pkg_mgr"
+
+ci_show_pkg_mgr:
+	ansible all -m setup -a "filter=ansible_pkg_mgr" -e "ansible_ssh_host=server1 ansible_ssh_port=22"
+
+syntax_check:
+	ansible-playbook --syntax-check install_vim.yml
 
 run:
 	ansible-playbook install_vim.yml
