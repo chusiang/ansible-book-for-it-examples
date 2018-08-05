@@ -32,7 +32,7 @@
         group: www-data
         mode: "0644"
         backup: yes
-      notify: restart nginx
+      notify: Restart nginx
 
     # （security）關閉 server_tokens：移除 server_tokens 前的 '#' 字元。
     - name: Turn server_tokens off
@@ -43,7 +43,7 @@
         insertafter: "# server_tokens off;"
         line: "server_tokens off;"
         state: present
-      notify: restart nginx
+      notify: Restart nginx
 
     # 啟動 Nginx 服務。
     - name: Start nginx (1/2)
@@ -69,7 +69,7 @@
   handlers:
     # 執行 sudo service nginx restart 指令。此 handler task 將會與
     # Modify index.html 和 Turn server_tokens off 兩個 tasks 連動。
-    - name: restart nginx
+    - name: Restart nginx
       become: true
       service:
         name: nginx
