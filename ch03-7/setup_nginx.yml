@@ -1,10 +1,3 @@
-# ============================================================
-#  Author: Chu-Siang Lai / chusiang (at) drx.tw
-#  Blog: http://note.drx.tw
-#  Filename: setup_nginx.yml
-#  Modified: 2018-07-11 22:01
-#  Description: A sample demo for handlers.
-# ============================================================
 ---
 
 - name: Setup the nginx
@@ -15,7 +8,7 @@
     blog: "http://note.drx.tw"
 
   tasks:
-    # 執行 'apt-get update' 指令。
+    # 執行 "apt-get update" 指令。
     - name: Update apt repo cache
       become: true
       apt:
@@ -52,40 +45,50 @@
         state: present
       notify: restart nginx
 
-    - name: Start nginx
+    # 啟動 Nginx 服務。
+    - name: Start nginx (1/2)
       become: true
       service:
         name: nginx
-        enabled: yes
         state: started
+      when: ansible_virtualization_type != 'docker'
 
-  # handlers
-  #
-  # * 當確認事件有被觸發才會動作。
-  # * 一個 handler 可被多個 task 關聯（notify），並於 tasks 跑完才會執行。
+    # 當 service module 在 Docker container 裡不管用，就自己下指令啟動它！
+    - name: Start nginx (2/2)
+      become: true
+      command: service nginx start
+      args:
+        warn: no
+      register: start_nginx_result
+      changed_when: '"[ OK ]" in start_nginx_result.stdout'
+      when: ansible_virtualization_type == 'docker'
+      tags: skip_ansible_lint
+
+  # handlers：當特定事件被觸發後才會動作。一個 handler 可被多個 task
+  #           關聯（notify），並於 playbook 的最後才會執行。
   handlers:
-    # 執行 'sudo service nginx restart' 指令。此 handler task 將會與
-    # "Modify index.html" 和 "Turn server_tokens off" 兩個 tasks 連動。
+    # 執行 sudo service nginx restart 指令。此 handler task 將會與
+    # Modify index.html 和 Turn server_tokens off 兩個 tasks 連動。
     - name: restart nginx
       become: true
       service:
         name: nginx
         state: restarted
 
-  # post_tasks:
-  #
-  # 在 tasks 之後執行的 tasks。
+  # post_tasks：在一般 tasks 和 handlers 之後執行的 tasks。
   post_tasks:
     # 取得網頁內容。
     - name: Get web context
-      uri:
-        url: http://localhost
-        return_content: yes
+      command: curl http://localhost
+      args:
+        warn: no
       register: web_context
+      changed_when: false
+      tags: skip_ansible_lint
 
     # 印出檢查結果。
     - name: Print web context
       debug:
-        msg: "{{ web_context.content }}"
+        msg: "{{ web_context.stdout_lines }}"
 
 # vim: ft=yaml.ansible :
